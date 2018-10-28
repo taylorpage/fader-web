@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
+import Upload from './upload/Upload';
 import './App.css';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <h1>Fader</h1>
-        </header>
+        <Upload></Upload>
       </div>
     );
   }
