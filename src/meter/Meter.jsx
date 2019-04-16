@@ -2,18 +2,11 @@ import React, { Component } from 'react';
 import Gauge from 'react-svg-gauge';
 
 class Meter extends Component {
-  constructor () {
-    super();
-    this.state = {
-      value: 0
-    }
-  }
-
   render() {
-    return(
+    return (
       <div>
         <Gauge
-          value={ this.state.value }
+          value={ this.props.value }
           width={ 400 }
           height={ 320 }
           topLabelStyle={ { display: 'none' } }
@@ -23,6 +16,6 @@ class Meter extends Component {
       </div>
     );
   }
-}
+};
 
 export default Meter;
