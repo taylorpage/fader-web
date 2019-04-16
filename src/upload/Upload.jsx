@@ -24,7 +24,18 @@ class Upload extends Component {
     const reader = new FileReader();
     reader.onload = ( e ) => this.audio.src = e.target.result;
     reader.readAsDataURL( this.input.files[ 0 ] );
-    this.state.webAudio.createAnalyserNode();
+    // this.state.webAudio.createAnalyserNode();
+    this.connectAudioToDestination();
+  }
+
+  connectAudioToDestination() {
+    const track = this.state.webAudio.audioContext.createMediaElementSource( this.audio );
+    track.connect( this.state.webAudio.audioContext.destination );
+    this.props.setWebAudioAPI( this.state.webAudio );
+  }
+
+  play() {
+    this.audio.play();
   }
 
   render() {
@@ -35,7 +46,7 @@ class Upload extends Component {
           <button type="submit">Upload</button>
           <audio id="audio" ref={ el => this.audio = el } controls={ true } />
         </form>
-        <button onClick={ this.state.webAudio.analyseAudio }>Analyze</button>
+        <button onClick={ this.play.bind( this ) }>Analyze</button>
       </div>
     );
   }
