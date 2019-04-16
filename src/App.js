@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
-import Upload from './upload/Upload';
+// import Upload from './upload/Upload';
+import Meter from './meter/Meter';
 import './App.css';
 
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <Upload></Upload>
+        <Meter></Meter>
       </div>
     );
   }
