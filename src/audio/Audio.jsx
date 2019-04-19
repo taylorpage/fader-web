@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class Audio extends Component {
   constructor() {
     super();
-    this.src = '../../assets/nebula_demo_loop.mp3';
+    this.src = 'https://s3-us-west-1.amazonaws.com/orbitr-video/nebula_demo_loop.mp3';
   }
 
   componentDidMount() {
@@ -12,9 +12,7 @@ class Audio extends Component {
     this.window.fetch( this.src )
       .then( res => res.arrayBuffer() )
       .then( buffer => this.context.decodeAudioData( buffer ) )
-      .then( buffer => {
-        this.buffer = buffer;
-      });
+      .then( buffer => this.buffer = buffer );
   }
   play() {
     const source = this.context.createBufferSource();
