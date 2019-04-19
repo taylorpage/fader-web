@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Upload from './upload/Upload';
+// import Upload from './upload/Upload';
 import Compressor from './compressor/Compressor';
+import Audio from './audio/Audio';
 import './App.css';
 
 class App extends Component {
@@ -21,7 +22,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Upload setWebAudioAPI={ this.setWebAudioAPI.bind( this ) } ></Upload>
+        {/* <Upload setWebAudioAPI={ this.setWebAudioAPI.bind( this ) } ></Upload> */}
+        <Audio></Audio>
         <Compressor></Compressor>
       </div>
     );
