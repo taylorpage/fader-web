@@ -9,6 +9,10 @@ class Compressor extends Component {
     };
   }
 
+  componentDidMount() {
+    console.log( this.props.context.destination );
+  }
+
   handleChange( e ) {
     this.setState({
       value: e.target.value

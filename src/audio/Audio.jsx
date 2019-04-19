@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
+import Compressor from '../compressor/Compressor';
 
 class Audio extends Component {
   constructor() {
     super();
     this.playing = false;
     this.state = {
-      played: false
+      played: false,
+      context: null
     };
     this.src = 'https://s3-us-west-1.amazonaws.com/orbitr-video/nebula_demo_loop.mp3';
   }
@@ -25,7 +27,14 @@ class Audio extends Component {
         this.source = this.context.createBufferSource();
         this.source.buffer = this.buffer;
         this.source.connect( this.context.destination );
+        this.setAudioContextToState();
       });
+  }
+
+  setAudioContextToState() {
+    this.setState({
+      context: this.context,
+    });
   }
 
   play() {
@@ -53,6 +62,11 @@ class Audio extends Component {
       <div>
         <button onClick={ this.prePlay.bind( this ) }>play</button>
         <button onClick={ this.stop.bind( this ) }>pause</button>
+        {
+          this.state.context && (
+            <Compressor context={ this.state.context }></Compressor>
+          )
+        }
       </div>
     );
   }
