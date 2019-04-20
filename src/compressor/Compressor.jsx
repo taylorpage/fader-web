@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Meter from '../meter/Meter';
+import ratios from './compression-rations';
 
 class Compressor extends Component {
   constructor() {
@@ -10,21 +11,48 @@ class Compressor extends Component {
   }
 
   componentDidMount() {
-    console.log( this.props.context.destination );
+  }
+
+  createCompressor() {
+    this.compressor = this.props.context.createDynamicsCompressor();
+    this.props.source.connect( this.compressor );
+    this.compressor.connect( this.props.context.destination );
   }
 
   handleChange( e ) {
-    this.setState({
-      value: e.target.value
-    });
+    this.compressor.ratio.setValueAtTime(
+      ratios.calculateRatio( 'ratio', e.target.value ),
+      this.props.context.currentTime
+    );
+    this.compressor.threshold.setValueAtTime(
+      ratios.calculateRatio( 'threshold', e.target.value ),
+      this.props.context.currentTime
+    );
+    this.compressor.knee.setValueAtTime(
+      ratios.calculateRatio( 'knee', e.target.value ),
+      this.props.context.currentTime
+    );
+    this.compressor.attack.setValueAtTime(
+      ratios.calculateRatio( 'attack', e.target.value ),
+      this.props.context.currentTime
+    );
+    this.compressor.release.setValueAtTime(
+      ratios.calculateRatio( 'release', e.target.value ),
+      this.props.context.currentTime
+    );
+    console.log( this.compressor.reduction );
   }
 
   render() {
+    this.createCompressor();
     return (
       <div>
         <input
           type="range"
-          onChange={ this.handleChange.bind( this ) }>
+          onChange={ this.handleChange.bind( this ) }
+          min="0"
+          max="100"
+        >
         </input>
         <Meter value={ this.state.value }></Meter>
       </div>

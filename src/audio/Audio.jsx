@@ -18,7 +18,10 @@ class Audio extends Component {
 
   setupAudioContext() {
     this.window = window;
-    this.context = new ( this.window.AudioContext || this.window.webkitAudioContext )();
+    this.context = new (
+      this.window.AudioContext ||
+      this.window.webkitAudioContext
+    )();
     return this.window.fetch( this.src )
       .then( res => res.arrayBuffer() )
       .then( buffer => this.context.decodeAudioData( buffer ) )
@@ -64,7 +67,10 @@ class Audio extends Component {
         <button onClick={ this.stop.bind( this ) }>pause</button>
         {
           this.state.context && (
-            <Compressor context={ this.state.context }></Compressor>
+            <Compressor
+              source={ this.source }
+              context={ this.state.context }
+            ></Compressor>
           )
         }
       </div>
