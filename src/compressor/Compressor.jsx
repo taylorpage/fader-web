@@ -6,7 +6,8 @@ class Compressor extends Component {
   constructor() {
     super();
     this.state = {
-      meterValue: 100
+      meterValue: 100,
+      sliderValue: -100
     };
     this.meterConstants = {
       volumeRange: 110,
@@ -16,6 +17,11 @@ class Compressor extends Component {
   }
 
   componentDidMount() {
+    this.createCompressor();
+  }
+
+  componentDidUpdate( prevProps ) {
+    prevProps.context !== this.props.context &&
     this.createCompressor();
   }
 
@@ -62,6 +68,9 @@ class Compressor extends Component {
 
   handleChange( e ) {
     const value = Math.abs( e.target.value );
+    this.setState({
+      sliderValue: e.target.value
+    });
     this.compressor.ratio.setValueAtTime(
       ratios.calculateRatio( 'ratio', value ),
       this.props.context.currentTime
@@ -92,6 +101,7 @@ class Compressor extends Component {
           onChange={ this.handleChange.bind( this ) }
           min="-100"
           max="-10"
+          value={ this.state.sliderValue }
         >
         </input>
         <Meter value={ this.state.meterValue }></Meter>
