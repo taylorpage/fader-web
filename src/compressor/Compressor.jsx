@@ -6,55 +6,95 @@ class Compressor extends Component {
   constructor() {
     super();
     this.state = {
-      value: 0
+      meterValue: 100
+    };
+    this.meterConstants = {
+      volumeRange: 110,
+      volumeScale: 12,
+      reductionScale: 1.5
     };
   }
 
   componentDidMount() {
+    this.createCompressor();
   }
 
   createCompressor() {
     this.compressor = this.props.context.createDynamicsCompressor();
     this.props.source.connect( this.compressor );
     this.compressor.connect( this.props.context.destination );
+    this.createAnalyser();
+  }
+
+  createAnalyser() {
+    this.analyser = this.props.context.createAnalyser();
+    this.analyser.smoothingTimeConstant = 0.3;
+    this.analyser.fftSize = 1024;
+    this.createScriptProcessor();
+    this.props.source.connect( this.analyser );
+  }
+
+  createScriptProcessor() {
+    this.node = this.props.context.createScriptProcessor( 2048, 1, 1 );
+    this.node.onaudioprocess = () => {
+      var array = new Uint8Array( this.analyser.frequencyBinCount );
+      this.analyser.getByteFrequencyData( array );
+      this.setState({
+        meterValue: this.generateMeterReduction( array )
+      });
+    }
+    this.node.connect( this.props.context.destination );
+  }
+
+  generateMeterReduction ( volumeArr ) {
+    return (
+      this.meterConstants.volumeRange -
+      ratios.volumeArrayAverage(
+        volumeArr,
+        this.meterConstants.volumeScale
+      ) +
+      (
+        this.compressor.reduction /
+        this.meterConstants.reductionScale
+      )
+    );
   }
 
   handleChange( e ) {
+    const value = Math.abs( e.target.value );
     this.compressor.ratio.setValueAtTime(
-      ratios.calculateRatio( 'ratio', e.target.value ),
+      ratios.calculateRatio( 'ratio', value ),
       this.props.context.currentTime
     );
     this.compressor.threshold.setValueAtTime(
-      ratios.calculateRatio( 'threshold', e.target.value ),
+      ratios.calculateRatio( 'threshold', value ),
       this.props.context.currentTime
     );
     this.compressor.knee.setValueAtTime(
-      ratios.calculateRatio( 'knee', e.target.value ),
+      ratios.calculateRatio( 'knee', value ),
       this.props.context.currentTime
     );
     this.compressor.attack.setValueAtTime(
-      ratios.calculateRatio( 'attack', e.target.value ),
+      ratios.calculateRatio( 'attack', value ),
       this.props.context.currentTime
     );
     this.compressor.release.setValueAtTime(
-      ratios.calculateRatio( 'release', e.target.value ),
+      ratios.calculateRatio( 'release', value ),
       this.props.context.currentTime
     );
-    console.log( this.compressor.reduction );
   }
 
   render() {
-    this.createCompressor();
     return (
       <div>
         <input
           type="range"
           onChange={ this.handleChange.bind( this ) }
-          min="0"
-          max="100"
+          min="-100"
+          max="-10"
         >
         </input>
-        <Meter value={ this.state.value }></Meter>
+        <Meter value={ this.state.meterValue }></Meter>
       </div>
     );
   }
