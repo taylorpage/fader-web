@@ -11,7 +11,7 @@ const ratios = {
     const r = this.ranges[ range ];
     const min = r[ 0 ];
     const max = r[ 1 ];
-    return (( max - min ) * ( rate * .01 )) + min;
+    return parseFloat( (( max - min ) * ( rate * .01 )) + min );
   },
   volumeArrayAverage ( arr, scale ) {
     let numbers;

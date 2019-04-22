@@ -11,7 +11,7 @@ class Compressor extends Component {
     super();
     this.state = {
       meterValue: 100,
-      sliderValue: -100
+      sliderValue: 90
     };
     this.meterConstants = {
       volumeRange: 110,
@@ -70,29 +70,30 @@ class Compressor extends Component {
     );
   }
 
-  handleChange( e ) {
-    const value = Math.abs( e.target.value );
+  handleChange( _, v ) {
+    const value = Math.abs( v );
+    const scaledValue = Math.abs( v - 100 );
     this.setState({
-      sliderValue: e.target.value
+      sliderValue: +value
     });
     this.compressor.ratio.setValueAtTime(
-      ratios.calculateRatio( 'ratio', value ),
+      ratios.calculateRatio( 'ratio', scaledValue ),
       this.props.context.currentTime
     );
     this.compressor.threshold.setValueAtTime(
-      ratios.calculateRatio( 'threshold', value ),
+      ratios.calculateRatio( 'threshold', scaledValue ),
       this.props.context.currentTime
     );
     this.compressor.knee.setValueAtTime(
-      ratios.calculateRatio( 'knee', value ),
+      ratios.calculateRatio( 'knee', scaledValue ),
       this.props.context.currentTime
     );
     this.compressor.attack.setValueAtTime(
-      ratios.calculateRatio( 'attack', value ),
+      ratios.calculateRatio( 'attack', scaledValue ),
       this.props.context.currentTime
     );
     this.compressor.release.setValueAtTime(
-      ratios.calculateRatio( 'release', value ),
+      ratios.calculateRatio( 'release', scaledValue ),
       this.props.context.currentTime
     );
   }
@@ -105,14 +106,12 @@ class Compressor extends Component {
           />
         </Grid>
         <Grid className="compressor-control" item sm={ 4 }>
-          <input
-            type="range"
-            onChange={ this.handleChange.bind( this ) }
-            min="-100"
-            max="-10"
+          <Slider
             value={ this.state.sliderValue }
-          >
-          </input>
+            onChange={ this.handleChange.bind( this ) }
+            min={ 0 } // -100
+            max={ 90 } // -10
+          />
         </Grid>
         <Grid item sm={ 6 }>
           <Meter value={ this.state.meterValue }>
