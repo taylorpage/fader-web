@@ -7,8 +7,8 @@ class Meter extends Component {
       <div>
         <Gauge
           value={ this.props.value }
-          width={ 400 }
-          height={ 320 }
+          width={ 180 }
+          height={ 100 }
           topLabelStyle={ { display: 'none' } }
           valueLabelStyle={ { display: 'none' } }
           minMaxLabelStyle={ { display: 'none' } }

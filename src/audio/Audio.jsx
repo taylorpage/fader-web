@@ -9,7 +9,8 @@ class Audio extends Component {
       played: false,
       context: null
     };
-    this.src = 'https://s3-us-west-1.amazonaws.com/orbitr-video/nebula_demo_loop.mp3';
+    // this.src = 'https://s3-us-west-1.amazonaws.com/orbitr-video/nebula_demo_loop.mp3';
+    this.src = 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/123941/Yodel_Sound_Effect.mp3';
   }
 
   componentDidMount() {
@@ -70,6 +71,7 @@ class Audio extends Component {
             <Compressor
               source={ this.source }
               context={ this.state.context }
+              classes={ { container: 'blue-metal' } }
             ></Compressor>
           )
         }

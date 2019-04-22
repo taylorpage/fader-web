@@ -1,0 +1,14 @@
+.compressor-container {
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.compressor-control input {
+  margin-top: 45px;
+}
+
+.compressor-container.blue-metal {
+  background: url( '../assets/blue-metal.jpg' );
+  background-size: cover;
+  background-position: top center;
+}
