@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Lobster');
+
 .compressor-container {
   border-radius: 10px;
   padding: 20px;
@@ -8,7 +10,30 @@
 }
 
 .compressor-container.blue-metal {
-  background: url( '../assets/blue-metal.jpg' );
+  background: url( '../assets/blue_pattern.jpg' );
   background-size: cover;
   background-position: top center;
+  font-family: Lobster;
+}
+
+.compressor-slider {
+  margin-top: 40px;
+}
+
+.compressor-switch {
+  margin-top: 30px;
+}
+
+.compressor-power {
+  width: 15px;
+  height: 15px;
+  background-color: grey;
+  border-radius: 50%;
+  margin-top: 46px;
+}
+
+.compressor-title-container h1 {
+  color: white;
+  margin: 0;
+  float: left;
 }

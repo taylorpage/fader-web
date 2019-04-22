@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 import './Compressor.css';
 import Meter from '../meter/Meter';
 import ratios from './compression-rations';
+
+// Material UI imports
 import Grid from '@material-ui/core/Grid';
 import Switch from '@material-ui/core/Switch';
 import Slider from '@material-ui/lab/Slider';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
 
 class Compressor extends Component {
   constructor() {
@@ -22,6 +26,7 @@ class Compressor extends Component {
 
   componentDidMount() {
     this.createCompressor();
+    this.createTheme();
   }
 
   componentDidUpdate( prevProps ) {
@@ -54,6 +59,24 @@ class Compressor extends Component {
       });
     }
     this.node.connect( this.props.context.destination );
+  }
+
+  createTheme () {
+    this.setState({
+      theme: createMuiTheme({
+        typography: {
+          useNextVariants: true,
+        },
+        palette: {
+          primary: {
+            main: '#FFFFFF'
+          },
+          secondary: {
+            main: 'rgb( 0, 255, 200 )'
+          },
+        }
+      })
+    });
   }
 
   generateMeterReduction( volumeArr ) {
@@ -100,24 +123,47 @@ class Compressor extends Component {
 
   render() {
     return (
-      <Grid className={ this.props.classes.container + ' compressor-container' } container>
-        <Grid item sm={ 2 }>
-          <Switch
-          />
+      <MuiThemeProvider theme={ this.state.theme }>
+        <Grid className={ this.props.classes.container + ' compressor-container' } container>
+          <Grid item sm={ 2 }>
+            <Switch className="compressor-switch" color="Secondary"/>
+          </Grid>
+          <Grid item sm={ 4 }>
+
+            {/** Title Row */}
+            <Grid container>
+              <Grid className="compressor-title-container" item sm={ 12 }>
+                <h1>Sapphire</h1>
+              </Grid>
+            </Grid>
+
+            {/** Switch and Slider Row */}
+            <Grid container>
+              <Grid className="compressor-control" item sm={ 12 }>
+                { this.state.theme && (
+                    <Slider
+                      className="compressor-slider"
+                      value={ this.state.sliderValue }
+                      onChange={ this.handleChange.bind( this ) }
+                      min={ 0 } // -100
+                      max={ 90 } // -10
+                  /> )
+                }
+              </Grid>
+            </Grid>
+          </Grid>
+
+          {/** Meter Row */}
+          <Grid item sm={ 6 }>
+            <Meter
+              value={ this.state.meterValue }
+              primary={ this.props.primary }
+              secondary={ this.props.secondary }
+            >
+            </Meter>
+          </Grid>
         </Grid>
-        <Grid className="compressor-control" item sm={ 4 }>
-          <Slider
-            value={ this.state.sliderValue }
-            onChange={ this.handleChange.bind( this ) }
-            min={ 0 } // -100
-            max={ 90 } // -10
-          />
-        </Grid>
-        <Grid item sm={ 6 }>
-          <Meter value={ this.state.meterValue }>
-          </Meter>
-        </Grid>
-      </Grid>
+      </MuiThemeProvider>
     );
   }
 };

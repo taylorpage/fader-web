@@ -12,6 +12,8 @@ class Meter extends Component {
           topLabelStyle={ { display: 'none' } }
           valueLabelStyle={ { display: 'none' } }
           minMaxLabelStyle={ { display: 'none' } }
+          color={ '#00DD88' }
+          backgroundColor={ '#000000' }
         />
       </div>
     );
