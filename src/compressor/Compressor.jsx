@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import './Compressor.css';
 import Meter from '../meter/Meter';
 import ratios from './compression-rations';
+import Grid from '@material-ui/core/Grid';
+import Switch from '@material-ui/core/Switch';
+import Slider from '@material-ui/lab/Slider';
 
 class Compressor extends Component {
   constructor() {
@@ -52,7 +56,7 @@ class Compressor extends Component {
     this.node.connect( this.props.context.destination );
   }
 
-  generateMeterReduction ( volumeArr ) {
+  generateMeterReduction( volumeArr ) {
     return (
       this.meterConstants.volumeRange -
       ratios.volumeArrayAverage(
@@ -95,17 +99,26 @@ class Compressor extends Component {
 
   render() {
     return (
-      <div>
-        <input
-          type="range"
-          onChange={ this.handleChange.bind( this ) }
-          min="-100"
-          max="-10"
-          value={ this.state.sliderValue }
-        >
-        </input>
-        <Meter value={ this.state.meterValue }></Meter>
-      </div>
+      <Grid className={ this.props.classes.container + ' compressor-container' } container>
+        <Grid item sm={ 2 }>
+          <Switch
+          />
+        </Grid>
+        <Grid className="compressor-control" item sm={ 4 }>
+          <input
+            type="range"
+            onChange={ this.handleChange.bind( this ) }
+            min="-100"
+            max="-10"
+            value={ this.state.sliderValue }
+          >
+          </input>
+        </Grid>
+        <Grid item sm={ 6 }>
+          <Meter value={ this.state.meterValue }>
+          </Meter>
+        </Grid>
+      </Grid>
     );
   }
 };
