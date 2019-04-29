@@ -2,17 +2,33 @@
 
 .compressor-container {
   border-radius: 10px;
+  background-size: contain;
+  background-position: top center;
   padding: 20px;
+  margin: 20px;
 }
 
 .compressor-control input {
   margin-top: 45px;
 }
 
-.compressor-container.blue-metal {
+.compressor-container.blue-pattern {
   background: url( '../assets/blue_pattern.jpg' );
-  background-size: cover;
-  background-position: top center;
+  font-family: Lobster;
+}
+
+.compressor-container.red-pattern {
+  background: url( '../assets/red_pattern.jpg' );
+  font-family: Lobster;
+}
+
+.compressor-container.green-pattern {
+  background: url( '../assets/green_pattern.png' );
+  font-family: Lobster;
+}
+
+.compressor-container.yellow-pattern {
+  background: url( '../assets/yellow_pattern.jpg' );
   font-family: Lobster;
 }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Compressor from '../compressor/Compressor';
+import compressors from '../compressor/data';
 
 class Audio extends Component {
   constructor() {
@@ -67,13 +68,20 @@ class Audio extends Component {
         <button onClick={ this.prePlay.bind( this ) }>play</button>
         <button onClick={ this.stop.bind( this ) }>pause</button>
         {
-          this.state.context && (
-            <Compressor
-              source={ this.source }
-              context={ this.state.context }
-              classes={ { container: 'blue-metal' } }
-            ></Compressor>
-          )
+          this.state.context &&
+          compressors.map( ( compressor, i ) => {
+            return (
+              <Compressor
+                key={ `compressor-${i}` }
+                source={ this.source }
+                context={ this.state.context }
+                classes={ { container: 'blue-metal' } }
+                selected={ compressor.selected }
+                title={ compressor.title }
+                styles={ compressor.styles }
+              ></Compressor>
+            );
+          })
         }
       </div>
     );
