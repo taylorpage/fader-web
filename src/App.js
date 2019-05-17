@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Audio from './audio/Audio';
+import Audio from './components/audio/Audio';
 import './App.css';
 import Grid from '@material-ui/core/Grid';
 

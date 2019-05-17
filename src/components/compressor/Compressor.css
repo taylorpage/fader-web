@@ -13,22 +13,22 @@
 }
 
 .compressor-container.blue-pattern {
-  background: url( '../assets/blue_pattern.jpg' );
+  background: url( '../../assets/blue_pattern.jpg' );
   font-family: Lobster;
 }
 
 .compressor-container.red-pattern {
-  background: url( '../assets/red_pattern.jpg' );
+  background: url( '../../assets/red_pattern.jpg' );
   font-family: Lobster;
 }
 
 .compressor-container.green-pattern {
-  background: url( '../assets/green_pattern.png' );
+  background: url( '../../assets/green_pattern.png' );
   font-family: Lobster;
 }
 
 .compressor-container.yellow-pattern {
-  background: url( '../assets/yellow_pattern.jpg' );
+  background: url( '../../assets/yellow_pattern.jpg' );
   font-family: Lobster;
 }
 
