@@ -45,12 +45,14 @@ class Audio extends Component {
   }
 
   play() {
+    console.log( 'hello?' );
     this.setState({
       played: true
     }, () => this.source.start());
   }
 
   prePlay() {
+    console.log( this.playing );
     !this.playing && ( this.state.played
       ? this.setupAudioContext().then( () => this.play() )
       : this.play() );
@@ -72,10 +74,8 @@ class Audio extends Component {
           children={
             <Icon>play_arrow</Icon>
           }
-          onClick={ () => console.log( 'test' ) }
+          onClick={ () => this.prePlay.call( this ) }
         />
-        {/* <button onClick={ this.prePlay.bind( this ) }>play</button>
-        <button onClick={ this.stop.bind( this ) }>pause</button> */}
         {
           this.state.context &&
           compressors.map( ( compressor, i ) => {
