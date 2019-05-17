@@ -16,7 +16,7 @@ const compressors = [
   {
     title: 'Ruby',
     ratios: {},
-    selected: true,
+    selected: false,
     styles: {
       backgroundClass: 'red-pattern',
       meterPrimaryColor: '#FFBB00',
@@ -30,7 +30,7 @@ const compressors = [
   {
     title: 'Emerald',
     ratios: {},
-    selected: true,
+    selected: false,
     styles: {
       backgroundClass: 'green-pattern',
       meterPrimaryColor: '#AA00DD',
@@ -44,7 +44,7 @@ const compressors = [
   {
     title: 'Citrine',
     ratios: {},
-    selected: true,
+    selected: false,
     styles: {
       backgroundClass: 'yellow-pattern',
       meterPrimaryColor: '#FF7700',

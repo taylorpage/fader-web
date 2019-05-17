@@ -144,6 +144,7 @@ class Compressor extends Component {
                 <Grid container>
                   <Grid className="compressor-title-container" item sm={ 12 }>
                     <h1>{ this.props.title }</h1>
+                    <h5>{ this.props.subtitle }</h5>
                   </Grid>
                 </Grid>
 

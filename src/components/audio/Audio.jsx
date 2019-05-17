@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Compressor from '../compressor/Compressor';
 import compressors from '../compressor/data';
+import Fab from '@material-ui/core/Fab';
+import Icon from '@material-ui/core/Icon';
 
 class Audio extends Component {
   constructor() {
@@ -65,8 +67,15 @@ class Audio extends Component {
   render() {
     return(
       <div>
-        <button onClick={ this.prePlay.bind( this ) }>play</button>
-        <button onClick={ this.stop.bind( this ) }>pause</button>
+        <Fab
+          color="primary"
+          children={
+            <Icon>play_arrow</Icon>
+          }
+          onClick={ () => console.log( 'test' ) }
+        />
+        {/* <button onClick={ this.prePlay.bind( this ) }>play</button>
+        <button onClick={ this.stop.bind( this ) }>pause</button> */}
         {
           this.state.context &&
           compressors.map( ( compressor, i ) => {
